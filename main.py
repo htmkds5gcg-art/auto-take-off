@@ -3,7 +3,9 @@ from __future__ import annotations
 import argparse
 import json
 import logging
+import sys
 from pathlib import Path
+from collections.abc import Sequence
 
 from src.classifier import CivilClassifier
 from src.intake import PlanIntake
@@ -19,7 +21,7 @@ from src.vector_extraction import VectorExtractor
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Civil/sitework Auto Takeoff Agent")
-    parser.add_argument("--input", required=True, help="PDF, image, or folder to process")
+    parser.add_argument("--input", default=None, help="PDF, image, or folder to process")
     parser.add_argument("--output", default="./output", help="Output directory")
     parser.add_argument("--project", default="Untitled Project", help="Project name")
     parser.add_argument("--manual-scale", default=None, help='Manual fallback scale, e.g. "1in=20ft"')
@@ -30,8 +32,18 @@ def build_parser() -> argparse.ArgumentParser:
     return parser
 
 
-def main() -> int:
-    args = build_parser().parse_args()
+def main(argv: Sequence[str] | None = None) -> int:
+    parser = build_parser()
+    argv = list(sys.argv[1:] if argv is None else argv)
+    if not argv:
+        print("Auto Takeoff Agent is installed and ready.")
+        print()
+        parser.print_help()
+        return 0
+
+    args = parser.parse_args(argv)
+    if not args.input:
+        parser.error("the following arguments are required for takeoff runs: --input")
     setup_logging(args.debug)
 
     input_path = Path(args.input)
