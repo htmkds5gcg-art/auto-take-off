@@ -27,6 +27,41 @@ Optional arguments:
 --debug true
 ```
 
+## Railway / Web API
+
+The repo includes a FastAPI wrapper for hosted use on Railway.
+
+Railway can use the included `railway.json` start command:
+
+```bash
+uvicorn api:app --host 0.0.0.0 --port $PORT
+```
+
+Local API run:
+
+```bash
+uvicorn api:app --reload
+```
+
+Useful endpoints:
+
+- `GET /health`: health check
+- `GET /docs`: interactive OpenAPI docs
+- `POST /takeoff`: upload a plan file and start a takeoff job
+- `GET /takeoff/{job_id}`: check job status
+- `GET /takeoff/{job_id}/download`: download all outputs as a zip
+
+Example upload:
+
+```bash
+curl -X POST http://localhost:8000/takeoff \
+  -F "file=@./input/plans.pdf" \
+  -F "project=Project Name" \
+  -F "manual_scale=1in=20ft"
+```
+
+The hosted API stores uploaded files and outputs under `runs/` by default. Set `TAKEOFF_RUN_ROOT` to change that location.
+
 ## How Scale Is Detected
 
 The scale engine uses a conservative chain:
