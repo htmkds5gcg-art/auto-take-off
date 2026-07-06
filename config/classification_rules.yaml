@@ -1,0 +1,19 @@
+categories:
+  - Earthwork
+  - Storm drainage
+  - Sanitary sewer
+  - Water main
+  - Fire main
+  - Erosion control
+  - Asphalt paving
+  - Concrete
+  - Curb
+  - Striping/signage
+  - Landscaping/sod
+  - Structures
+  - Miscellaneous
+confidence:
+  high: [0.90, 1.00]
+  usable_review: [0.70, 0.89]
+  low_review: [0.40, 0.69]
+  exclude_without_approval: [0.0, 0.39]

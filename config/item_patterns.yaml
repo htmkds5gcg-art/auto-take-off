@@ -1,0 +1,8 @@
+patterns:
+  storm_pipe: '\b\d+\s*"\s*RCP\b|\bSTORM\b|\bTYPE\s+[A-Z]\s+INLET\b'
+  sanitary: '\bSANITARY\b|\bMANHOLE\b|\bPVC\b'
+  water: '\bWATER\s*MAIN\b|\bDIP\b|\bHYDRANT\b|\bVALVE\b'
+  curb: '\bCURB(?:\s+AND\s+GUTTER)?\b'
+  erosion: '\bSILT\s+FENCE\b|\bSTABILIZED\s+CONSTRUCTION\s+ENTRANCE\b'
+  pavement: '\bASPHALT\b|\bPAVEMENT\b|\bMILLING\b'
+  concrete: '\bSIDEWALK\b|\bCONCRETE\b'
